@@ -1,19 +1,31 @@
 {
   "name": "state-management-battle",
   "version": "1.0.0",
-  "description": "battle about redux and MST based on react",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/unadlib/state-management-battle.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/unadlib/state-management-battle/issues"
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
   },
-  "homepage": "https://github.com/unadlib/state-management-battle#readme"
+  "dependencies": {
+    "mobx": "^3.4.1",
+    "mobx-react": "^4.3.5",
+    "mobx-state-tree": "^1.2.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "reselect": "^3.0.1"
+  }
 }
