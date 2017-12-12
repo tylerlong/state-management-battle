@@ -22,6 +22,9 @@ const TodoStore = types.model({
 }).views(self => ({
   get count () {
     return self.todos.length
+  },
+  page (index) {
+    return self.todos.slice(index * 100, index * 100 + 100)
   }
 })).actions(self => ({
   increase () {
@@ -34,16 +37,29 @@ const TodoStore = types.model({
 
 const todoStore = TodoStore.create({ todos: sampleTodos })
 
-class MyTodo extends React.Component {
+class TodoItem extends React.Component {
   render () {
+    console.log('render TodoItem')
+    const todo = this.props.todo
+    return <p>{todo.title}</p>
+  }
+}
+const ObserverTodoItem = observer(TodoItem)
+
+class MyTodos extends React.Component {
+  render () {
+    console.log('render MyTodos')
     return (
       <div>
         <button onClick={() => todoStore.decrease()}>-</button>
         {todoStore.count}
         <button onClick={() => todoStore.increase()}>+</button>
+        <div style={{position: 'absolute', top: 99999}}>
+          {todoStore.page(0).map((todo, index) => <ObserverTodoItem key={index} todo={todo} />)}
+        </div>
       </div>
     )
   }
 }
 
-export default observer(MyTodo)
+export default observer(MyTodos)
