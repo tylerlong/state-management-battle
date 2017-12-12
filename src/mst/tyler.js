@@ -23,7 +23,7 @@ const TodoStore = types.model({
   get count () {
     return self.todos.length
   },
-  page (index) {
+  page (index) { // pagination, page size is 100
     return self.todos.slice(index * 100, index * 100 + 100)
   }
 })).actions(self => ({
