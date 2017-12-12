@@ -2,6 +2,9 @@ import { types } from 'mobx-state-tree'
 import React from 'react'
 import { observer } from 'mobx-react'
 
+const testArrayLength = 2 ** 15
+const sampleTodos = [...Array(testArrayLength).keys()].map(i => ({ title: `todo item ${i}` }))
+
 const Todo = types.model({
   title: types.string,
   completed: false
@@ -29,7 +32,7 @@ const TodoStore = types.model({
   }
 }))
 
-const todoStore = TodoStore.create({ todos: [] })
+const todoStore = TodoStore.create({ todos: sampleTodos })
 
 class MyTodo extends React.Component {
   render () {
