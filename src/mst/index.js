@@ -12,19 +12,26 @@ const list = types.model('list', {
   }
 }))
 
-const counter = types.model({
-  count: types.optional(types.number, 0),
-  list: types.optional(types.array(list), Array(testArrayLength).fill(0).map(_ => ({done: false})))
-}).actions(self => ({
-  increment () {
-    self.count++
-    self.list.push({done: false})
-  },
-  decrement () {
-    self.count--
-    self.list.push({done: false})
-  }
-}))
+const counter = types
+  .model({
+    count: types.optional(types.number, 0),
+    list: types.optional(types.array(list), Array(testArrayLength).fill(0).map(_ => ({done: false})))
+  })
+  .views(self => ({
+    get listData() {
+      return self.list.filter((_, index) => index < testArrayLength)
+    }
+  }))
+  .actions(self => ({
+    increment () {
+      self.count++
+      self.list.push({done: false})
+    },
+    decrement () {
+      self.count--
+      self.list.push({done: false})
+    }
+  }))
 
 const store = counter.create()
 
@@ -42,6 +49,7 @@ const Counter = inject('store')(
 const List = inject(
   store => ({
     store: store.store.list.filter((_, index) => index < testArrayLength),
+    // store: store.store.listData
   })
 )(
   observer(
@@ -51,7 +59,7 @@ const List = inject(
       }
 
       componentDidUpdate () {
-        console.log('MST render Time:',performance.now() - this.time)
+        console.log('MST render Time:', performance.now() - this.time)
       }
 
       render () {
